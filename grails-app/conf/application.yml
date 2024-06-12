@@ -1,8 +1,10 @@
 info:
   app:
-    name: keytesting\
+    name: keytesting
     version: '0.1'
     grailsVersion: 6.1.0
+
+
 dataSource:
   url: jdbc:postgresql://localhost:5432/testing
   dialect: org.hibernate.dialect.PostgreSQL82Dialect

@@ -1,0 +1,68 @@
+triggerOnInsert
+triggerOnUpdate
+
+
+
+-- Create trigger for INSERT
+CREATE TRIGGER insert_timestamp_trigger
+BEFORE INSERT ON your_table_name
+FOR EACH ROW
+EXECUTE FUNCTION update_timestamps();
+
+-- Create trigger for UPDATE
+CREATE TRIGGER update_timestamp_trigger
+BEFORE UPDATE ON your_table_name
+FOR EACH ROW
+EXECUTE FUNCTION update_timestamps();
+
+
+
+CREATE OR REPLACE FUNCTION update_timestamps()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        NEW.created_on := CURRENT_TIMESTAMP;
+        NEW.modified_on := CURRENT_TIMESTAMP;
+        RETURN NEW;
+    ELSIF TG_OP = 'UPDATE' THEN
+        NEW.modified_on := CURRENT_TIMESTAMP;
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+//DELETE
+DO $$
+DECLARE
+    rec RECORD;
+BEGIN
+    FOR rec IN
+        SELECT trigger_name
+        FROM information_schema.triggers
+        WHERE event_object_table = 'your_table_name' AND trigger_schema = 'your_schema_name'
+    LOOP
+        EXECUTE 'DROP TRIGGER ' || quote_ident(rec.trigger_name) || ' ON your_schema_name.' || quote_ident('your_table_name');
+    END LOOP;
+END $$;
+
+
+
+//CREATEDBY DYNAMIC
+CREATE OR REPLACE FUNCTION set_created_by()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.created_by := current_setting('myapp.user_id', true);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger
+CREATE TRIGGER before_insert_set_created_by
+BEFORE INSERT ON author
+FOR EACH ROW
+EXECUTE FUNCTION set_created_by();
+
+select * from author

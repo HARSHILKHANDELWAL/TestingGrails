@@ -8,9 +8,12 @@ class Book {
     String title
     String description
     Author author
-
+    String createdOn
+    String createdBy
     static constraints = {
         // version false // Uncomment if you don't want versioning
+        createdOn(nullable: true)
+        createdBy(nullable: false)
     }
 
     static belongsTo = [author: Author]
@@ -20,5 +23,7 @@ class Book {
         id column: 'uuid'
         author column: 'author_id' // This specifies the foreign key column
         author cascade: 'all'
+
+
     }
 }
