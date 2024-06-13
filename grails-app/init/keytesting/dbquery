@@ -1,0 +1,18 @@
+-- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- CREATE TABLE book (
+--     uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+--     title VARCHAR(255) NOT NULL,
+--     description VARCHAR(255)
+-- );
+-- select * from book
+
+-- First, ensure the uuid-ossp extension is installed
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- Create the table with UUID as VARCHAR
+CREATE TABLE book (
+    uuid VARCHAR(36) DEFAULT uuid_generate_v4() PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description VARCHAR(255)
+);

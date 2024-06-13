@@ -9,8 +9,9 @@ dataSource:
   url: jdbc:postgresql://localhost:5432/testing
   dialect: org.hibernate.dialect.PostgreSQL82Dialect
   driverClassName: org.postgresql.Driver
-  username: ${DB_USERNAME}
-  password: ${DB_PASSWORD}
+  dbCreate: none
+  username: postgres
+  password: root
   pooled: true
   jmxExport: true
 grails:
@@ -62,7 +63,7 @@ grails:
       codec: html
 hibernate:
   hbm2ddl:
-    auto: update
+    auto: none
   cache:
     queries: false
     use_second_level_cache: false

@@ -23,10 +23,8 @@ class BookController extends RestfulController<Book> {
         try {
             // Set the session variable
             def body=request.JSON
-            sql.execute("BEGIN")
 
             // Set session variable within the transaction block
-            sql.execute("SET LOCAL myapp.user_id = '${userId}'")
 
             // Optionally, you can perform additional operations here
 
@@ -36,14 +34,9 @@ class BookController extends RestfulController<Book> {
             def book = new Book(body)
             println book as JSON
             println "book"
-
             def ans=book.save(flush: true);
-
-            sql.execute("COMMIT")
-
-
 //            def ans1= Book.get(ans.id)
-            println ans as JSON
+            println ans.id
 
 
             render(ans as JSON)

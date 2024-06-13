@@ -1,29 +1,26 @@
 package keytesting
 
 import grails.gorm.annotation.Entity
+import org.hibernate.annotations.Type
 
 @Entity
 class Book {
-    String id
+//    @Type(type = "pg-uuid")
+    String id // This will be mapped to the UUID column in the database
     String title
     String description
-    Author author
-    String createdOn
-    String createdBy
+    static transients = ['version']  // Declare as transient property
     static constraints = {
-        // version false // Uncomment if you don't want versioning
-        createdOn(nullable: true)
-        createdBy(nullable: false)
+        // Allow id to be nullable and blank
+        id nullable: true, blank: true
+        title blank: false, maxSize: 255
+        description nullable: true
     }
 
-    static belongsTo = [author: Author]
-
     static mapping = {
-        id generator: 'uuid'
-        id column: 'uuid'
-        author column: 'author_id' // This specifies the foreign key column
-        author cascade: 'all'
-
+        // Specify the column type as UUID
+        id column: 'uuid', generator: 'uuid2' // Specify the column type as UUID and generator as assigned
+        version false // Disable versioning if not needed
 
     }
 }

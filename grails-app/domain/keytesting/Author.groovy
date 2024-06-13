@@ -20,5 +20,5 @@ class Author {
         createdBy(nullable: true)
 
     }
-    static hasMany = [books: Book]
+
 }
