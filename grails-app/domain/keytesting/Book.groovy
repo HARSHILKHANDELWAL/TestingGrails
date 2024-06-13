@@ -19,7 +19,7 @@ class Book {
 
     static mapping = {
         // Specify the column type as UUID
-        id column: 'uuid', generator: 'uuid2' // Specify the column type as UUID and generator as assigned
+        id column: 'uuid', generator: 'uuid' // Specify the column type as UUID and generator as assigned
         version false // Disable versioning if not needed
 
     }
