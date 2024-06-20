@@ -39,7 +39,6 @@ GrailsApplication grailsApplication
             def ans1= author.get(ans.id)
             println ans1
 
-
             render(ans1 as JSON)
 
         } finally {

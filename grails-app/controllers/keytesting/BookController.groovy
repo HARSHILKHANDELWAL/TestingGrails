@@ -29,16 +29,26 @@ class BookController extends RestfulController<Book> {
             // Optionally, you can perform additional operations here
 
             // Commit the transaction
-
-            println body
+   def id=params.uuid
+            println id
             def book = new Book(body)
-            println book as JSON
-            println "book"
             def ans=book.save(flush: true);
 //            def ans1= Book.get(ans.id)
-            println ans.id
-
-
+            def brandIdentity=[
+                    id:id,
+                    brand:[
+                            "id":id
+                    ]
+                    ]
+            print(brandIdentity)
+            body.brandIdentity=brandIdentity
+//            body.brandidentity=[
+//                    "id":id
+//            ] as JSON
+//            body.brand=[
+//                "id":id
+//            ] as JSON
+            print(body as JSON)
             render(ans as JSON)
 
         } finally {
