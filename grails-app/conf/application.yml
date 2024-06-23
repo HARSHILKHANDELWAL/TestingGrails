@@ -18,6 +18,10 @@ grails:
   gorm:
     reactor:
       events: false
+    default:
+      mapping:
+        '*':
+          fetch: 'join'
   mime:
     disable:
       accept:
@@ -63,7 +67,7 @@ grails:
       codec: html
 hibernate:
   hbm2ddl:
-    auto: none
+    auto: update
   cache:
     queries: false
     use_second_level_cache: false

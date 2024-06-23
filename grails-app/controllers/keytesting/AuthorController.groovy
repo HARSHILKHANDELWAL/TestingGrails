@@ -47,4 +47,21 @@ GrailsApplication grailsApplication
 
 
     }
+    def getAllUser(){
+        def authors = Author.findAll()
+//        for (book in authors.book) {
+//            println book as JSON
+//        }
+//         Render the response as JSON
+        def response = authors.collect { author ->
+            [
+                    id: author.id,
+                    name: author.name,
+                    books: author.book.each { book -> return book as JSON
+                    }
+            ]
+        }
+
+        render response as JSON
+    }
 }
