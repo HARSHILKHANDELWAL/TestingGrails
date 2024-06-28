@@ -3,6 +3,7 @@ package keytesting
 import grails.converters.JSON
 import grails.core.GrailsApplication
 import grails.gorm.transactions.Transactional
+import grails.web.mapping.LinkGenerator
 import groovy.sql.Sql
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -13,7 +14,8 @@ class AuthorController {
 @Autowired
 GrailsApplication grailsApplication
     DataSource dataSource
-
+ @Autowired
+ LinkGenerator linkGenerator
     def index() {
         Sql sql = new Sql(dataSource)
         def userId="fdfdffdf"
@@ -61,7 +63,8 @@ GrailsApplication grailsApplication
                     }
             ]
         }
-
+        def uuid=44433343
+       println linkGenerator.link(uri: "/brand/${uuid}")
         render response as JSON
     }
 }
